@@ -12,7 +12,7 @@ no *iniciar() {
     return NULL;
 }
 
-void *push(int n, no *pilha) {
+void *push(int n, no **pilha) {
 
     no *novo = malloc(sizeof(no));
     no *aux = malloc(sizeof(no));
@@ -22,9 +22,9 @@ void *push(int n, no *pilha) {
     }
 
     novo->n = n;
-    aux=pilha;
-    novo->prox = pilha;
-    pilha=novo;
+    aux=*pilha;
+    novo->prox = aux;
+    *pilha=novo;
 }
 int pop(no **pilha){
     int n =(*pilha)->n;
@@ -38,14 +38,14 @@ int main() {
 
     pilha = iniciar();
 
-    pilha = push(5, pilha);
-    pilha = push(10, pilha);
+    push(5, &pilha);
+    push(10, &pilha);
     
 
     
     printf("%d\n",pop(&pilha));
-    pilha = push(17, pilha);
-    pilha = push(6, pilha);
+    push(17, &pilha);
+    push(6, &pilha);
     printf("%d\n",pop(&pilha));
     printf("%d\n",pop(&pilha));
     return 0;
