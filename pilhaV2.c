@@ -12,19 +12,19 @@ no *iniciar() {
     return NULL;
 }
 
-no *push(int n, no *pilha) {
+void *push(int n, no *pilha) {
 
     no *novo = malloc(sizeof(no));
-
+    no *aux = malloc(sizeof(no));
     if (novo == NULL) {
         printf("Erro ao alocar memoria!\n");
         return pilha;
     }
 
     novo->n = n;
+    aux=pilha;
     novo->prox = pilha;
-
-    return novo;
+    pilha=novo;
 }
 int pop(no **pilha){
     int n =(*pilha)->n;
@@ -44,6 +44,7 @@ int main() {
 
     
     printf("%d\n",pop(&pilha));
+    pilha = push(17, pilha);
     pilha = push(6, pilha);
     printf("%d\n",pop(&pilha));
     printf("%d\n",pop(&pilha));
