@@ -23,4 +23,5 @@ int main()
     int indice = busca(13,0,9,vetor);
     printf("\n%d",indice);
     return 0;
+    
 }
