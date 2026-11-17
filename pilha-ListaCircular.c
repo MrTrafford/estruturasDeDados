@@ -4,23 +4,18 @@
 
 //Implementação de uma pilha utilizando lista circular
 
-//Define um apelido para a pilha
 typedef struct No no;
 
-//Estrutura que define a nossa pilha
 struct No {
     char info;
     no *prox;
     no *final;
 };
 
-//Função para iniciar a pilha
 no *iniciar() {
     return NULL;
     
 }
-
-//Função para criar um nó
 no * getNo(){
     no *novo = malloc(sizeof(no));
     if (novo == NULL) {
@@ -58,8 +53,9 @@ void push(char info_, no **pilha) {
     }
     else{
        novo->prox = (*pilha);
+       
        novo->final = (*pilha)->final;
-      
+      (*pilha)->final->prox=novo;
         
         
     }
@@ -72,7 +68,12 @@ void push(char info_, no **pilha) {
 }
 
 //Função para remção na pilha
-int pop(no **pilha){
+
+
+
+
+
+char pop(no **pilha){
     char info_;
     no *aux;
     if (isEmpty(*pilha)){
@@ -95,11 +96,12 @@ int main() {
     pilha = iniciar();
     push('A', &pilha);
     push('B', &pilha);
-    push('c', &pilha);
-    push('d', &pilha);
-    push('e', &pilha);
-    printf("%c\n",pop(&pilha));
-    printf("%c\n",pop(&pilha));
+    push('C', &pilha);
+    printf("%c\n",pilha->info);
+    printf("%c\n",pilha->prox->info);
+    printf("%c\n",pilha->prox->prox->info);
+    printf("%c\n",pilha->prox->prox->prox->info);
+    printf("%c\n",pilha->prox->prox->prox->prox->info);
    
    
 }
