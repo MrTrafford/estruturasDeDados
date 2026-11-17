@@ -40,7 +40,11 @@ bool isEmpty(no *lista)
        
    
 }
+//Função para iniciar a lista
 
+void inicializar(no **lista){
+    *lista=NULL;
+}
 void insert(char c, no **lista)
 {
 
@@ -51,15 +55,14 @@ void insert(char c, no **lista)
     if (isEmpty(*lista))
     {
         
-        *lista=novo;
-        (*lista)->prox=novo;
-
+        novo->prox=novo;
+        novo->final=novo;
     }
 
     else
     {
-        novo->prox=(*lista)->prox;
-        (*lista)->prox=novo;
+        novo->prox=*lista;
+        novo->final=(*lista)->final;
     }
     *lista=novo;
 }
@@ -139,6 +142,7 @@ int main()
     char alfabeto[26]="abcdefghijklmnopqrstuvxwyz";
     no *lista;
     no *lista2;
+    inicializar(&lista);
     for (int i = 0; i < 5;  i++)
     {
        insert(alfabeto[i], &lista);
@@ -152,7 +156,6 @@ int main()
     printf ("\ntamanho da lista: %d",size(lista));
     printList(lista);
     
-    -
     
   
 }

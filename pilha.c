@@ -1,84 +1,113 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
+//Implementação de uma pilha utilizando lista circular
 
 typedef struct No no;
 
 struct No {
     char info;
     no *prox;
+    no *final;
 };
 
-//Função para iniciar a pilha
 no *iniciar() {
     return NULL;
+    
 }
-bool isEmpty(no *pilha){
-    if (pilha==NULL){
+no * getNo(){
+    no *novo = malloc(sizeof(no));
+    if (novo == NULL) {
+        printf("Erro ao alocar memoria!\n");
+        return NULL;
+    }
+    return novo;
+}
+
+//Função para verificiar se a pilha está vazia
+bool isEmpty(no *pilha) {
+    if (pilha == NULL) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }
 
-//Função para alocar memória para um novo nó
-no * getNo(){
-    no *novo = malloc(sizeof(no));
-    return novo;
-}
-
-//função para adicionar um elemento na pilha
-no *push(char info_, no *pilha) {
-
+// Função para inserção na pilha
+void push(char info_, no **pilha) {
     no *novo = getNo();
-    novo->info =info_;
-    novo->prox = pilha;
+    
+    
+    if (novo == NULL) {
+        return;
+    }
 
-    return novo;
-}
-char pop(no **pilha){
-    if isEmpty(*pilha){
-        printf("Não é possível remover da pilha");
+    novo->info = info_;
 
+    if (isEmpty(*pilha)){
+        novo->prox= novo;
+        novo->final=novo;
+       
     }
     else{
-        char info =(*pilha)->info;
-        (*pilha)=(*pilha)->prox;
-        return info;
-        free(*pilha);
+       novo->prox = (*pilha);
+       
+       novo->final = (*pilha)->final;
+      (*pilha)->final->prox=novo;
+        
+        
     }
+    *pilha=novo;
+    
+    
+    
+
     
 }
-char top(no *pilha){
-    if isEmpty(*pilha){
-        printf("Não é possível remover da pilha");
 
+//Função para remção na pilha
+
+
+
+
+
+int pop(no **pilha){
+    char info_;
+    no *aux;
+    aux=*pilha;
+    info_=aux->info;
+    if (isEmpty(*pilha)){
+        printf("Underflow na pilha");
+        exit (1);
+    }
+    else if(*pilha==(*pilha)->prox){
+        *pilha=NULL;
     }
     else{
-        char info =(*pilha)->info;
-        (*pilha)=(*pilha)->prox;
-        return info;
-        free(*pilha);
+        
+        (*pilha)->final->prox=(*pilha)->prox;
+        *pilha=(*pilha)->prox;
+        free(aux);
     }
-    return pilha->info;
+    return info_;
 }
 
 int main() {
-
     no *pilha;
-
     pilha = iniciar();
-
-    pilha = push('C', pilha);
-    pilha = push('R', pilha);
-    pilha = push('7', pilha);
-
+    push('A', &pilha);
+    push('B', &pilha);
+    push('C', &pilha);
     
-    printf("%c\n",pop(&pilha));
-    pilha = push('A', pilha);
-    printf("%c\n",pop(&pilha));
-    printf("%c\n",top(pilha));
-    printf("%c\n",pop(&pilha));
-    printf("%c\n",pop(&pilha));
-    return 0;
+   
+    printf("Eliminado %c\n", pop(&pilha));
+   
+    printf("Eliminado %c\n", pop(&pilha));
+    
+    
+    
+   
+   
 }
