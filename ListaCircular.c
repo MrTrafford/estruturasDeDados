@@ -8,7 +8,7 @@ struct No
 {
     char c;
     no *prox;
-    no *final;
+
 };
 void delAfter(no **lista, char *c);
 no *get(int index, no *lista);
@@ -25,7 +25,12 @@ no *getNo()
 }
 bool isEmpty(no *lista)
 {
-    return lista == NULL;
+    if (lista==NULL){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
  void delAfter(no **lista, char *info_){
     no *aux;
@@ -51,21 +56,21 @@ void insert(char c, no **lista)
     no *novo = getNo();
     novo->c = c;
 
-    no *aux = *lista;
     if (isEmpty(*lista))
     {
+        novo->prox=novo;
+        *lista=novo;
         
-        novo->prox=*lista;
-        novo->final=*lista;
     }
 
     else
     {
-        //novo->final=*lista;
-        novo->prox=*lista;
-        
+       
+        novo->prox=(*lista)->prox;
+        (*lista)->prox=novo;
     }
     *lista=novo;
+    
 }
 
 no *get(int index, no *lista)
@@ -144,20 +149,18 @@ int main()
     no *lista;
     no *lista2;
     inicializar(&lista);
-    for (int i = 0; i < 2;  i++)
+    for (int i = 0; i < 5;  i++)
     {
        insert(alfabeto[i], &lista);
     }
   
     //elAfter(0,&lista);
     char info_;
-    printf("%c\n",lista->c);
-    printf("%c\n",lista->prox->c);
-    printf("%c\n",lista->prox->prox->c);
-    printf("%c\n",lista->prox->prox->prox->c);
-    printf("%c\n",lista->prox->prox->prox->prox->c);
-    printf ("\ntamanho da lista: %d",size(lista));
-    //printList(lista);
+    //printf("%c\n",lista->c);
+   
+    //printf ("\ntamanho da lista: %d",size(lista));
+    
+    printf("%c\n",get(11,lista)->c);
     
     
   
