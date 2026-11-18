@@ -55,14 +55,15 @@ void insert(char c, no **lista)
     if (isEmpty(*lista))
     {
         
-        novo->prox=novo;
-        novo->final=novo;
+        novo->prox=*lista;
+        novo->final=*lista;
     }
 
     else
     {
+        //novo->final=*lista;
         novo->prox=*lista;
-        novo->final=(*lista)->final;
+        
     }
     *lista=novo;
 }
@@ -85,7 +86,7 @@ int size(no *lista){
     int size = 0;
     no *aux=lista;
     if(lista!=NULL){
-        aux=lista;
+        //aux=lista;
         size=1;
     }
     
@@ -143,18 +144,20 @@ int main()
     no *lista;
     no *lista2;
     inicializar(&lista);
-    for (int i = 0; i < 5;  i++)
+    for (int i = 0; i < 2;  i++)
     {
        insert(alfabeto[i], &lista);
     }
-    for (int i = 6; i < 10;  i++)
-    {
-       insert(alfabeto[i], &lista2);
-    }
+  
     //elAfter(0,&lista);
     char info_;
+    printf("%c\n",lista->c);
+    printf("%c\n",lista->prox->c);
+    printf("%c\n",lista->prox->prox->c);
+    printf("%c\n",lista->prox->prox->prox->c);
+    printf("%c\n",lista->prox->prox->prox->prox->c);
     printf ("\ntamanho da lista: %d",size(lista));
-    printList(lista);
+    //printList(lista);
     
     
   
